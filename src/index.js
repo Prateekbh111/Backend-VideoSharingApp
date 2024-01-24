@@ -1,21 +1,21 @@
 //data base is always in another continent
 
 import connectDB from "./db/index.js"
-
+import dotenv from 'dotenv'
+import {app} from './app.js'
 const servingPort = process.env.PORT || 8000;
+dotenv.config({
+    path: './.env'
+})
 
 connectDB()
-.then(()=>{
-    app.on("error", (error)=> {
-        console.error("Error: ", error);
-        throw err;
-    })
-    app.listen(servingPort, ()=>{
-        console.log(`Server is running at port: ${servingPort}`);
+.then(() => {
+    app.listen(servingPort, () => {
+        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
     })
 })
-.catch(()=>{
-    console.error(`MongoDB connection failed!!!`, err);
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
 })
 
 
